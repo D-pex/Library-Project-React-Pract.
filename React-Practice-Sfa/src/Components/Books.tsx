@@ -24,8 +24,35 @@ export default function Books() {
             .then(data => setBooks(data));
     }, []);
     if (Books.length === 0) {
-        return <div>Loading...</div>;
+        return <div> "Fetching the Book list Wait...</div>;
     }
+
+    // return (
+    //     <div>
+    //         <table>
+    //             <thead>
+    //                 <tr>
+    //                     <th>Book Name</th>
+    //                     <th>Author Name</th>
+    //                     <th>Publisher Name</th>
+    //                     <th>Category ID</th>
+    //                 </tr>
+    //             </thead>
+
+    //             <tbody>
+    //                 {Books.map((b) => (
+    //                     <tr key={b.bookID}>
+    //                         <td>{b.bookName}</td>
+    //                         <td>{b.authorName}</td>
+    //                         <td>{b.publisherName}</td>
+    //                         <td>{b.categoryID}</td>
+    //                     </tr>
+    //                 ))}
+    //             </tbody>
+    //         </table>
+    //     </div>
+    // );
+
 
     return (
         <div className="flex justify-center mt-10">
@@ -57,4 +84,5 @@ export default function Books() {
             </table>
         </div>
     )
+
 }
