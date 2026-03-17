@@ -3,7 +3,6 @@ import { ApiService } from 'Services/Index';
 import { Loader } from 'Shared/Component/Loader/Index';
 
 interface CategoryList {
-    id : number ;
      categoryName : string;
 }
 export default function Category (){
@@ -32,7 +31,6 @@ export default function Category (){
 
             <thead className="bg-green-600 text-white">
                 <tr>
-                    <th className="px-6 py-3 text-left">categoryID</th>
                     <th className="px-6 py-3 text-left">categoryName</th>
                 </tr>
             </thead>
@@ -40,10 +38,9 @@ export default function Category (){
             <tbody className="bg-white">
                 {Category.map((C) => (
                     <tr
-                        key={C.id}
+                        key={C.categoryName}
                         className="border-b hover:bg-gray-100 transition"
                     >
-                        <td className="px-6 py-3">{C.id}</td>
                         <td className="px-6 py-3">{C.categoryName}</td>
                     </tr>
                 ))}
