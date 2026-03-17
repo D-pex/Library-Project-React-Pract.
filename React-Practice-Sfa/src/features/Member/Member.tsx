@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { ApiService } from 'Services/Index';
+import { Loader } from 'Shared/Component/Loader/Index';
+
 
 interface MemberList {
     memberId: number;
@@ -6,47 +9,46 @@ interface MemberList {
     memberType: string;
 }
 
-export default function Members() {
-    const [Members, setMembers] = useState<MemberList[]>([]);
+export default function Member() {
+    const [loading, setLoading] = useState(true);
+    const [member, setMembers] = useState<MemberList[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5271/api/member', {
-            method: 'GET',
-            headers: {
-                Origin: window.location.host,
-                'Content-Type': 'application/json; charset=utf-8',
-            },
-        })
-            .then(response => response.json())
-            .then(data => setMembers(data));
+        ApiService.get<MemberList[]>('Member')
+            .then(setMembers)
+            .finally(() =>setLoading(false));
     }, []);
 
-    if (Members.length === 0) {
+    if (loading) { 
+    
+        return <div className='flex justify-center items-center py-100'><Loader /></div>
+    }
+    if (member.length === 0) {
         return <div>Wait Fetching the member List...</div>;
     }
 
-   /* return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Member Name</th>
-                        <th>Member Type</th>
-                        <th>Member ID</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {Members.map((m) => (
-                        <tr key={m.memberId}>
-                            <td>{m.memberName}</td>
-                            <td>{m.memberType}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );*/
+    /* return (
+         <div>
+             <table>
+                 <thead>
+                     <tr>
+                         <th>Member Name</th>
+                         <th>Member Type</th>
+                         <th>Member ID</th>
+                     </tr>
+                 </thead>
+ 
+                 <tbody>
+                     {Members.map((m) => (
+                         <tr key={m.memberId}>
+                             <td>{m.memberName}</td>
+                             <td>{m.memberType}</td>
+                         </tr>
+                     ))}
+                 </tbody>
+             </table>
+         </div>
+     );*/
 
     return (
         <div className="flex justify-center mt-10">
@@ -61,7 +63,7 @@ export default function Members() {
                 </thead>
 
                 <tbody className="bg-white">
-                    {Members.map((m) => (
+                    {member.map((m) => (
                         <tr
                             key={m.memberId}
                             className="border-b hover:bg-gray-100 transition"

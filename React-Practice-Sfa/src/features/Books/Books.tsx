@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ApiService } from 'Services/Index';
+import { Loader } from 'Shared/Component/Loader/Index';
 
 
 interface BookItem {
@@ -10,19 +12,18 @@ interface BookItem {
 }
 
 export default function Books() {
+     const [loading, setLoading] = useState(true);
     const [Books, setBooks] = useState<BookItem[]>([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5271/api/Books', {
-            method: 'GET',
-            headers: {
-                Origin: window.location.host,
-                'Content-Type': 'application/json; charset=utf-8',
-            },
-        })
-            .then(response => response.json())
-            .then(data => setBooks(data));
-    }, []);
+    useEffect (() => {
+        ApiService.get<BookItem[]>('Books')
+        .then(setBooks)
+        .finally(()=> setLoading(false));
+    },[]);
+        
+    if (loading){
+        return <Loader />
+    }
     if (Books.length === 0) {
         return <div> "Fetching the Book list Wait...</div>;
     }
