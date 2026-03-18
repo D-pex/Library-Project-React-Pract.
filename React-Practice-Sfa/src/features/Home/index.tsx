@@ -28,7 +28,7 @@ export default function Home() {
       title: "Issue / Return",
       desc: "Issue or return books",
       icon: "bi-arrow-left-right",
-      link: "/IssueList",
+      link: "/BookIssue",
       color: "from-orange-500 to-red-500",
     },*/
   ];
