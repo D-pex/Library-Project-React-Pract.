@@ -5,9 +5,9 @@ export default function Home() {
   const navigate = useNavigate();
 
   const menu = [
-    { name: "Books", path: "/books" },
-    { name: "Member", path: "/member" },
-    { name: "Category", path: "/category" },
+    { name: "Books", path: "/Books" },
+    { name: "Member", path: "/Member" },
+    { name: "Category", path: "/Category" },
   ];
 
   return (

@@ -1,81 +1,113 @@
-import { useEffect, useState } from 'react';
-import { ApiService } from 'Services/Index';
-import { Loader } from 'Shared/Component/Loader/Index';
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ApiService } from "Services/Index";
+import { Loader } from "Shared/Component/Loader/Index";
+import bg from "../../assets/library-bg.jpg"; // ✅ same background
 
 interface MemberList {
-    memberId: number;
-    memberName: string;
-    memberType: string;
+  memberId: number;
+  memberName: string;
+  memberType: string;
 }
 
 export default function Member() {
-    const [loading, setLoading] = useState(true);
-    const [member, setMembers] = useState<MemberList[]>([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        ApiService.get<MemberList[]>('Member')
-            .then(setMembers)
-            .finally(() =>setLoading(false));
-    }, []);
+  const [loading, setLoading] = useState(true);
+  const [member, setMembers] = useState<MemberList[]>([]);
 
-    if (loading) { 
-    
-        return <div className='flex justify-center items-center py-100'><Loader /></div>
-    }
-    if (member.length === 0) {
-        return <div>Wait Fetching the member List...</div>;
-    }
+  useEffect(() => {
+    ApiService.get<MemberList[]>("Member")
+      .then(setMembers)
+      .finally(() => setLoading(false));
+  }, []);
 
-    /* return (
-         <div>
-             <table>
-                 <thead>
-                     <tr>
-                         <th>Member Name</th>
-                         <th>Member Type</th>
-                         <th>Member ID</th>
-                     </tr>
-                 </thead>
- 
-                 <tbody>
-                     {Members.map((m) => (
-                         <tr key={m.memberId}>
-                             <td>{m.memberName}</td>
-                             <td>{m.memberType}</td>
-                         </tr>
-                     ))}
-                 </tbody>
-             </table>
-         </div>
-     );*/
+   if (loading) {
+    return <Loader />;
+  }
 
-    return (
-        <div className="flex justify-center mt-10">
-            <table className="min-w-[600px] border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+  if (member.length === 0) {
+    return <div className="text-white">Wait Fetching the member List...</div>;
+  }
 
-                <thead className="bg-blue-600 text-white">
-                    <tr>
-                        <th className="px-6 py-3 text-left">Member Name</th>
-                        <th className="px-6 py-3 text-left">Member Type</th>
-                        <th className="px-6 py-3 text-left">Member ID</th>
-                    </tr>
-                </thead>
+  return (
+    <div
+      className="min-h-screen w-full bg-cover bg-center relative flex justify-center items-center p-6"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+      {/* 🌫️ Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
 
-                <tbody className="bg-white">
-                    {member.map((m) => (
-                        <tr
-                            key={m.memberId}
-                            className="border-b hover:bg-gray-100 transition"
-                        >
-                            <td className="px-6 py-3">{m.memberName}</td>
-                            <td className="px-6 py-3">{m.memberType}</td>
-                            <td className="px-6 py-3">{m.memberId}</td>
-                        </tr>
-                    ))}
-                </tbody>
-
-            </table>
+      {/* 🧊 Glass Container */}
+      <div
+        className="relative z-10 w-full max-w-5xl
+                   bg-white/10
+                   backdrop-blur-xl
+                   rounded-2xl
+                   shadow-2xl
+                   border border-white/20
+                   p-8"
+      >
+        {/* 🔙 Back Button */}
+        <div className="mb-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2
+                       bg-white/10
+                       backdrop-blur-md
+                       border border-white/20
+                       text-white
+                       px-4 py-2
+                       rounded-md
+                       hover:bg-white/20
+                       transition duration-300"
+          >
+            ← Back
+          </button>
         </div>
-    );
+
+        {/* 👤 Title */}
+        <h1 className="text-3xl font-bold text-white text-center mb-8">
+          Member Management
+        </h1>
+
+        {/* 🧊 Glass Table */}
+        <div
+          className="bg-white/10
+                     backdrop-blur-lg
+                     rounded-xl
+                     border border-white/20
+                     shadow-lg
+                     overflow-hidden"
+        >
+          <table className="w-full">
+            <thead className="bg-white/20 text-white backdrop-blur-md">
+              <tr>
+                <th className="px-6 py-3 text-left">Member Name</th>
+                <th className="px-6 py-3 text-left">Member Type</th>
+                <th className="px-6 py-3 text-left">Member ID</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {member.map((m) => (
+                <tr
+                  key={m.memberId}
+                  className="border-b border-white/10
+                             text-white
+                             transition-all duration-300
+                             hover:bg-white/10
+                             hover:scale-[1.01]"
+                >
+                  <td className="px-6 py-3">{m.memberName}</td>
+                  <td className="px-6 py-3">{m.memberType}</td>
+                  <td className="px-6 py-3">{m.memberId}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 }
