@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Books from "features/Books/Books";
+import Books from "features/Books/List";
 import Home from "features/Home";
-import Members from "features/Member/Member";
-import Category from "features/Category/Category";
+import Members from "features/Member/List";
+import Category from "features/Category/List";
 
 
 function App() {
