@@ -1,108 +1,106 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import bg from "../../assets/library-bg.jpg";
 
 export default function Home() {
-  const cards = [
-    {
-      title: "Books",
-      desc: "Manage book records",
-      icon: "bi-book",
-      link: "/books",
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      title: "Member",
-      desc: "Manage library members",
-      icon: "bi-people",
-      link: "/member",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      title: "Category",
-      desc: "Manage book categories",
-      icon: "bi-tags",
-      link: "/category",
-      color: "from-purple-500 to-indigo-500",
-    },
+  const navigate = useNavigate();
+
+  const menu = [
+    { name: "Books", path: "/books" },
+    { name: "Member", path: "/member" },
+    { name: "Category", path: "/category" },
   ];
+
   return (
-    <div className="min-h-screen w-full bg-gray-200">
-      {/* 🌈 Full Width Gradient Section */}
-      <div
-        className="w-full min-h-screen
-                    bg-gradient-to-br from-cyan-400 via-blue-400 to-pink-400
-                    flex justify-center items-center"
-      >
-        {/* Content Container (Still Responsive) */}
-        <div className="w-full max-w-7xl px-6">
-          {/* Glass Card */}
+    <div
+      className="min-h-screen w-full bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/45"></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex items-center h-screen px-16">
+        {/* Hover Area */}
+        <div className="group relative w-[740px] h-[740px] cursor-pointer">
+          {/* Glass Menu Card */}
           <div
-            className="backdrop-blur-lg
-                        bg-white/20
-                        shadow-2xl
-                        rounded-2xl
-                        border border-white/40
-                        overflow-hidden"
+            className="absolute left-[280px] top-1/2 -translate-y-1/2
+                          opacity-0 group-hover:opacity-100
+                          translate-x-[-30px] group-hover:translate-x-0
+                          transition-all duration-500 ease-out"
           >
-            {/* Header */}
-            <div className="text-center py-12">
-              <h1 className="text-3xl md:text-4xl font-bold text-black drop-shadow-md">
-                Library Management System
-              </h1>
-              <p className="text-sm md:text-base text-black mt-2">
-                Manage books, members, and categories
-              </p>
-            </div>
-
-            {/* Cards */}
             <div
-              className="grid gap-8 px-6 pb-12
-                          grid-cols-1
-                          sm:grid-cols-2
-                          lg:grid-cols-3"
+              className="
+              bg-white/10
+              backdrop-blur-xl
+              border border-white/20
+              p-10
+              rounded-2xl
+              shadow-2xl
+              w-80
+            "
             >
-              {cards.map((card, index) => (
-                <div
-                  key={index}
-                  className="bg-white/80
-                           backdrop-blur-md
-                           rounded-xl
-                           shadow-lg
-                           hover:shadow-2xl
-                           transform
-                           hover:-translate-y-2
-                           hover:scale-105
-                           transition
-                           duration-300"
+              <h2 className="text-xl font-semibold mb-6 text-white">
+                Library Menu
+              </h2>
+
+              {menu.map((item, i) => (
+                <button
+                  key={i}
+                  onClick={() => navigate(item.path)}
+                  className="
+                    w-full text-left px-4 py-3 mb-3 rounded-lg
+                    bg-white/10
+                    border border-white/20
+                    text-white
+                    hover:bg-blue-600/80
+                    hover:scale-105
+                    transition-all duration-300
+                  "
                 >
-                  <div
-                    className={`h-2 rounded-t-xl bg-gradient-to-r ${card.color}`}
-                  ></div>
-
-                  <div className="p-6 text-center">
-                    <div className="text-4xl text-blue-600 mb-3">
-                      <i className={`bi ${card.icon}`}></i>
-                    </div>
-
-                    <h2 className="text-lg font-semibold">{card.title}</h2>
-
-                    <p className="text-gray-600 text-sm mt-1 mb-4">
-                      {card.desc}
-                    </p>
-
-                    <Link
-                      to={card.link}
-                      className="inline-block bg-blue-600 text-white px-5 py-2
-                               rounded-md text-sm
-                               hover:bg-blue-700
-                               transition"
-                    >
-                      Open
-                    </Link>
-                  </div>
-                </div>
+                  {item.name}
+                </button>
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Right Side Text */}
+        <div className="ml-auto text-white text-right max-w-lg fade-in-up relative">
+          {/* Glow */}
+          <div className="glow-bg"></div>
+
+          <div style={{ position: "relative", zIndex: 10 }}>
+            <h1 className="text-6xl font-bold mb-8 leading-tight shine-text float">
+              𝑳𝒊𝒃𝒓𝒂𝒓𝒚 𝑴𝒂𝒏𝒂𝒈𝒆𝒎𝒆𝒏𝒕 𝑺𝒚𝒔𝒕𝒆𝒎
+            </h1>
+
+            <p
+              className="text-gray-200 text-lg"
+              style={{ letterSpacing: "1px" }}
+            >
+              𝑾𝒉𝒆𝒓𝒆 𝒃𝒐𝒐𝒌𝒔 𝒂𝒓𝒆 𝒄𝒂𝒍𝒂𝒍𝒐𝒈𝒆𝒅 𝒂𝒏𝒅 𝒌𝒏𝒐𝒘𝒍𝒆𝒅𝒈𝒆 𝒊𝒔 𝒄𝒂𝒓𝒆𝒇𝒖𝒍𝒍𝒚 𝒎𝒂𝒊𝒏𝒕𝒂𝒊𝒏𝒆𝒅.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-0 left-0 w-full z-10">
+        <div
+          className="
+          mx-6 mb-4
+          bg-white/10
+          backdrop-blur-md
+          border border-white/20
+          rounded-xl
+          px-6 py-3
+          flex justify-between items-center
+          text-sm text-white/80
+        "
+        >
+          <span>© {new Date().getFullYear()} Library Management System™</span>
+          <span className="text-white/60">All Rights Reserved</span>
         </div>
       </div>
     </div>
