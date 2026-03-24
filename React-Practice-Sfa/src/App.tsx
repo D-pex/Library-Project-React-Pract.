@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Books from "features/Books/List";
+import Books from "features/Books/Pages/List";
 import Home from "features/Home";
 import Members from "features/Member/List";
 import Category from "features/Category/List";
