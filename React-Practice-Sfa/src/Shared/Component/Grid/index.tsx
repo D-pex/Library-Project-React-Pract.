@@ -84,15 +84,15 @@ export function Grid<T extends object>({
     <div className="relative">
       <div className="mb-4 flex justify-between items-center">
         <input
-          type="text"
-          placeholder="Search..."
-          className="px-4 py-2 rounded bg-slate-800 border border-slate-600 text-white"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setPage(1);
-          }}
-        />
+  type="text"
+  placeholder="Search..."
+  className="px-4 py-2 rounded-md bg-white border border-gray-300 text-black placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  value={search}
+  onChange={(e) => {
+    setSearch(e.target.value);
+    setPage(1);
+  }}
+/>
       </div>
 
       <table className="w-full text-left text-slate-300">
